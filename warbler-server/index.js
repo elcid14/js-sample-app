@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth");
 const messagesRoutes = require("./routes/messages");
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 const db = require("./models");
+const connectDb = require('./models/index')
 const PORT = 8081;
 
 app.use(cors());
@@ -42,6 +43,11 @@ app.use(function(req, res, next) {
 });
 
 app.use(errorHandler);
+
+connectDb().then(() => {
+  console.log("Mongodb connected")
+})
+
 
 app.listen(PORT, function() {
   console.log(`Server is starting on port ${PORT}`);

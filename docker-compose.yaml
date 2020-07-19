@@ -1,0 +1,23 @@
+version: "2"
+services:
+    client:
+        stdin_open: true
+        build:
+            dockerfile: Dockerfile
+            context: ./warbler-client
+        ports:
+            - "3000:3000"
+    server:
+        build:
+            dockerfile: Dockerfile
+            context: ./warbler-server
+        depends_on: 
+            - mongo
+        ports:
+            - "8001:8081"
+    mongo:
+        image: mongo
+        ports:
+            - "2701:2701"
+        
+
